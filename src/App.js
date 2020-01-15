@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import Student from "./Student/Student";
+import Teacher from "./Teacher/Teacher";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    // predefined and ready to use
+    name: "tushar",
+    hideIt: false,
+    template: ''
+  };
+
+  changeTextToggle = (template) => {
+    this.setState({
+      template: template
+    })
+  };
+
+  render() {
+
+    let showTemplate = null;
+
+    if(this.state.template === 'student') {
+      showTemplate = (
+        <Student/>
+      )
+    } 
+    if(this.state.template === 'teacher') {
+      showTemplate = (
+        <Teacher/>
+      )
+    }
+
+    return (
+      <div>
+        <input
+          type="button"
+          value="Show Teacher"
+          onClick={this.changeTextToggle.bind(this,'teacher')}
+          className="toggle-button"
+        />
+        <input
+          type="button"
+          value="Show Student"
+          onClick={this.changeTextToggle.bind(this,'student')}
+          className="toggle-button"
+        />
+
+        {showTemplate}
+
+      </div>
+    );
+  }
 }
 
 export default App;
